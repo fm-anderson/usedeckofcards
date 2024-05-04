@@ -1,6 +1,6 @@
 function Navbar() {
   return (
-    <div className="navbar bg-base-200 gap-1">
+    <div className="navbar gap-1 bg-transparent text-base-100">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         className="icon icon-tabler icon-tabler-cards"
@@ -8,7 +8,7 @@ function Navbar() {
         height="32"
         viewBox="0 0 24 24"
         strokeWidth="1.5"
-        stroke="#2c3e50"
+        stroke="#ffffff"
         fill="none"
         strokeLinecap="round"
         strokeLinejoin="round"

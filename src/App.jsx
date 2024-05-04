@@ -1,23 +1,19 @@
-import Footer from "./components/Footer";
-import Form from "./components/Form";
 import Navbar from "./components/Navbar";
+import Blackjack from "./components/Blackjack";
+import Main from "./components/Main";
+import Footer from "./components/Footer";
 
 function App() {
   return (
-    <div className="flex min-h-screen flex-col justify-between">
-      <Navbar />
+    <div className="bg-gradient-to-b from-[#1b4c1d] to-[#318834]">
+      <div className="flex min-h-screen flex-col justify-between">
+        <Navbar />
+        <Blackjack />
 
-      <main className="flex justify-center">
-        <div>
-          <span>
-            <p>Cards Remaining: 52</p>
-            <p>Deck Id: 3p40paa87x90</p>
-          </span>
-          <Form />
-        </div>
-      </main>
+        <Main />
 
-      <Footer />
+        <Footer />
+      </div>
     </div>
   );
 }
