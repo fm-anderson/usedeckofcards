@@ -1,6 +1,6 @@
 function Footer() {
   return (
-    <footer className="footer bg-base-200 items-center p-4">
+    <footer className="footer items-center bg-base-200 p-4">
       <aside className="grid-flow-col items-center">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -22,10 +22,10 @@ function Footer() {
         <p>Copyright © {new Date().getFullYear()} - useDeckOfCards</p>
       </aside>
       <nav className="grid-flow-col gap-4 md:place-self-center md:justify-self-end">
-        <a>
+        <a href="https://github.com/fm-anderson/usedeckofcards" target="_blank">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            class="icon icon-tabler icon-tabler-brand-github"
+            className="icon icon-tabler icon-tabler-brand-github"
             width="32"
             height="32"
             viewBox="0 0 24 24"
