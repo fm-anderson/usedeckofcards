@@ -32,6 +32,13 @@ export const shuffleNewDeck = async (deckCount = 1) => {
   return data;
 };
 
+export const checkDeck = async (deckId) => {
+  if (!deckId) throw new Error("Invalid deck ID");
+
+  const url = `${baseUrl}/${deckId}`;
+  return fetchAndHandle(url);
+};
+
 export const drawCards = async (deckId, count = 1) => {
   if (!deckId) throw new Error("Invalid deck ID");
 
@@ -54,4 +61,20 @@ export const listPileCards = async (deckId, pileName) => {
 
   const url = `${baseUrl}/${deckId}/pile/${pileName}/list/`;
   return fetchAndHandle(url);
+};
+
+export const fetchPileCards = async (deckId, pileName) => {
+  const url = `${baseUrl}/${deckId}/pile/${pileName}/list/`;
+  const response = await fetchAndHandle(url);
+
+  if (response.success && response.piles[pileName]?.cards) {
+    return response.piles[pileName].cards.map((card) => ({
+      code: card.code,
+      image: card.image,
+      value: card.value,
+      suit: card.suit,
+      pileName,
+    }));
+  }
+  return [];
 };

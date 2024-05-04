@@ -1,17 +1,19 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
+import { getFromLocalStorage, saveToLocalStorage } from "../utils/helper";
 import {
   shuffleNewDeck,
+  checkDeck,
   reshuffleDeck,
   drawCards,
   addToPile,
   listPileCards,
+  fetchPileCards,
 } from "../utils/api";
-import { getFromLocalStorage, saveToLocalStorage } from "../utils/helper";
 
 function useDeckOfCards() {
-  const [deckId, setDeckId] = useState(null);
+  const [deckId, setDeckId] = useState(getFromLocalStorage("deckId") || null);
   const [cardsRemaining, setCardsRemaining] = useState(0);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [pileCards, setPileCards] = useState([]);
 
   const updateDeck = useCallback((deckData) => {
@@ -23,24 +25,32 @@ function useDeckOfCards() {
   }, []);
 
   const initializeDeck = useCallback(async () => {
-    const storedDeckId = getFromLocalStorage("deckId");
     setIsLoading(true);
-
     try {
       let deckData;
-      if (storedDeckId) {
-        deckData = await reshuffleDeck(storedDeckId);
+      if (deckId) {
+        deckData = await checkDeck(deckId);
+        const pileNames = await listPileCards(deckId);
+        const updatedPileCards = [];
+
+        for (const pileName of Object.keys(pileNames.piles)) {
+          const cards = await fetchPileCards(deckData.deck_id, pileName);
+          updatedPileCards.push(...cards);
+        }
+        setPileCards(updatedPileCards);
       }
+
       if (!deckData || !deckData.success) {
         deckData = await shuffleNewDeck();
       }
+
       updateDeck(deckData);
     } catch (error) {
       console.error("Failed to initialize deck:", error);
     } finally {
       setIsLoading(false);
     }
-  }, [updateDeck]);
+  }, [deckId, updateDeck]);
 
   useEffect(() => {
     initializeDeck();
@@ -96,6 +106,7 @@ function useDeckOfCards() {
     pileCards,
     drawAndAddToPile,
     resetGame,
+    initializeDeck,
   };
 }
 
