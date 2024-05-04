@@ -4,12 +4,31 @@
 
 The useDeckOfCards hook provides a simple and flexible way to interact with the [Deck of Cards API](https://deckofcardsapi.com/). It allows you to shuffle new decks, draw cards, and manage piles, making it suitable for various card game applications or projects involving card deck management.
 
+Live Example: https://usedeckofcards.netlify.app/
+
 ### Key Features:
 
 - Shuffle and Draw Cards: Effortlessly shuffle new decks and draw cards from existing decks.
 - Manage Card Piles: Create and manage custom card piles with dynamic names and adjustable card counts.
 - Track Deck State: Keep track of remaining cards in the deck and monitor loading states.
 - Store Deck Id: To prevent the creation of multiple identical decks, we store the deckId in localStorage.
+
+## File Structure
+
+To properly implement the useDeckOfCards hook, the following file structure is recommended:
+
+```
+src/
+|-- hooks/
+|   |-- useDeckOfCards.js
+|-- utils/
+|   |-- helper.js
+|   |-- api.js
+```
+
+- [src/hooks/useDeckOfCards.js](https://github.com/fm-anderson/usedeckofcards/blob/main/src/hooks/useDeckOfCards.js): This file contains the core functionality for managing the deck of cards.
+- [src/utils/helper.js](https://github.com/fm-anderson/usedeckofcards/blob/main/src/utils/helper.js): This file contains utility functions for interacting with local storage.
+- [src/utils/api.js](https://github.com/fm-anderson/usedeckofcards/blob/main/src/utils/api.js): This file contains utility functions for interacting with the [Deck of Cards API](https://deckofcardsapi.com/).
 
 ## Usage
 
