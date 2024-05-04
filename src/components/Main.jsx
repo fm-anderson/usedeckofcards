@@ -29,10 +29,14 @@ function Main() {
           <Form drawAndAddToPile={drawAndAddToPile} resetGame={resetGame} />
         </div>
       </div>
-      <div className="flex w-full flex-wrap justify-center gap-4">
+      <div className="flex w-full flex-col items-center gap-4">
         {getPileNames.map((pileName) => {
           const cards = pileCards.filter((card) => card.pileName === pileName);
-          return <PileList key={pileName} pileName={pileName} cards={cards} />;
+          return (
+            <div key={pileName} className="flex w-full justify-center">
+              <PileList pileName={pileName} cards={cards} />
+            </div>
+          );
         })}
       </div>
     </main>

@@ -1,6 +1,6 @@
 function PileList({ pileName = "discarded", cards }) {
   return (
-    <div className="my-3">
+    <div className="mx-3 my-3">
       <h3>
         <span className="opacity-70">{pileName}</span> Pile
       </h3>
