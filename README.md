@@ -9,6 +9,7 @@ The useDeckOfCards hook provides a simple and flexible way to interact with the 
 - Shuffle and Draw Cards: Effortlessly shuffle new decks and draw cards from existing decks.
 - Manage Card Piles: Create and manage custom card piles with dynamic names and adjustable card counts.
 - Track Deck State: Keep track of remaining cards in the deck and monitor loading states.
+- Store Deck Id: To prevent the creation of multiple identical decks, we store the deckId in localStorage.
 
 ## Usage
 
@@ -79,6 +80,28 @@ const response = await listPileCards(deckId, pileName);
 
 - `deckId` The ID of the deck.
 - `pileName` The name of the pile.
+
+## Game Ideas
+
+**1. Blackjack Game**
+
+- The `drawAndAddToPile` function can be used to deal initial cards to each player and then allow them to draw additional cards. The `pileCards` state can track each player's hand.
+
+**2. Poker Game**
+
+- For a poker game, the `initializeDeck` function can be used to shuffle the deck, and `drawAndAddToPile` can deal hands to each player. The game can then progress with betting rounds and the option for players to draw new cards to replace some of their existing cards. The `pileCards` state can be used to store each player's hand, while a community pile can hold the shared cards for games like Texas Hold'em.
+
+**3. Solitaire Game**
+
+- The `initializeDeck` function can be used to shuffle the deck, and `drawAndAddToPile` can set up the initial tableau. The `listPileCards` function can then list the cards in each pile as players move cards around the tableau and foundations.
+
+**4. Go Fish Game**
+
+- The `drawAndAddToPile` function can be used to deal the initial hand to each player and allow them to draw cards when they need to "go fish." The `pileCards` state can keep track of each player's hand.
+
+**5. Crazy Eights Game**
+
+- The `initializeDeck` function can set up the game, while `drawAndAddToPile` allows players to draw and discard cards as they play. The `pileCards` state can track the players' hands and the discard pile.
 
 ## Acknowledgements
 
