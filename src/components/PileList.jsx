@@ -1,8 +1,8 @@
 function PileList({ pileName = "discarded", cards }) {
   return (
-    <div>
+    <div className="my-3">
       <h3>
-        <span className="italic opacity-70">{pileName}</span> Pile
+        <span className="opacity-70">{pileName}</span> Pile
       </h3>
       <ul className="flex gap-1">
         {cards.map((card, index) => (
