@@ -8,11 +8,11 @@ import {
 } from "../utils/api";
 import { getFromLocalStorage, saveToLocalStorage } from "../utils/helper";
 
-function useDeckOfCardsAPI() {
+function useDeckOfCards() {
   const [deckId, setDeckId] = useState(null);
   const [cardsRemaining, setCardsRemaining] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
-  const [pileCards, setPileCards] = useState({});
+  const [pileCards, setPileCards] = useState([]);
 
   const updateDeck = useCallback((deckData) => {
     if (deckData && deckData.success) {
@@ -59,10 +59,13 @@ function useDeckOfCardsAPI() {
           if (addToPileResult.success) {
             const updatedPileCards = await listPileCards(deckId, pileName);
             if (updatedPileCards.success) {
-              setPileCards((prev) => ({
-                ...prev,
-                [pileName]: updatedPileCards.piles[pileName].cards,
-              }));
+              setPileCards((prev) => [
+                ...prev.filter((card) => card.pileName !== pileName),
+                ...updatedPileCards.piles[pileName].cards.map((card) => ({
+                  ...card,
+                  pileName,
+                })),
+              ]);
             }
           }
         }
@@ -79,7 +82,7 @@ function useDeckOfCardsAPI() {
       const response = await reshuffleDeck(deckId);
       if (response.success) {
         setCardsRemaining(response.remaining);
-        setPileCards({});
+        setPileCards([]);
       }
     } catch (error) {
       console.error("Failed to reset game:", error);
@@ -96,4 +99,4 @@ function useDeckOfCardsAPI() {
   };
 }
 
-export default useDeckOfCardsAPI;
+export default useDeckOfCards;
