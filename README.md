@@ -1,8 +1,11 @@
-# React + Vite
+# useDeckOfCards
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### Description:
 
-Currently, two official plugins are available:
+The useDeckOfCards hook provides a simple and flexible way to interact with the Deck of Cards API. It allows you to shuffle new decks, draw cards, and manage piles, making it suitable for various card game applications or projects involving card deck management.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Key Features:
+
+- Shuffle and Draw Cards: Effortlessly shuffle new decks and draw cards from existing decks.
+- Manage Card Piles: Create and manage custom card piles with dynamic names and adjustable card counts.
+- Track Deck State: Keep track of remaining cards in the deck and monitor loading states.
