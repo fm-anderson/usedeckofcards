@@ -70,6 +70,7 @@ function useDeckOfCards() {
 
   const drawAndAddToPile = useCallback(
     async (pileName, count = 1) => {
+      setIsLoading(true);
       pileName = pileName || "discard";
 
       if (!deckId || isLoading) {
@@ -87,7 +88,6 @@ function useDeckOfCards() {
       }
 
       try {
-        setIsLoading(true);
         const result = await drawCards(deckId, count);
 
         if (result.success) {
@@ -139,12 +139,15 @@ function useDeckOfCards() {
   }, [deckId]);
 
   useEffect(() => {
+    setIsLoading(true);
     const storedDeckId = getFromLocalStorage("deckId");
 
     if (!storedDeckId) {
       createNewDeck();
+      setIsLoading(false);
     } else {
       initializeDeck();
+      setIsLoading(false);
     }
   }, []);
 
