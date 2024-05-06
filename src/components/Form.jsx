@@ -3,20 +3,20 @@ import { useState, useCallback } from "react";
 function Form({ drawAndAddToPile, resetGame }) {
   const [drawCount, setDrawCount] = useState("");
   const [pileName, setPileName] = useState("");
-  const [error, setError] = useState("");
+  const [error, setError] = useState(null);
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
 
-    const finalPileName = pileName.trim();
-    if (!/^[a-zA-Z0-9]+$/.test(finalPileName) && finalPileName !== "") {
+    const settedPileName = pileName.trim();
+    if (!/^[a-zA-Z0-9]+$/.test(settedPileName) && settedPileName !== "") {
       setError("Pile name can only contain alphanumeric characters.");
       return;
     }
 
+    drawAndAddToPile(settedPileName, drawCount || 1);
     setError("");
     setPileName("");
-    drawAndAddToPile(finalPileName || "discarded", drawCount || 0);
   };
 
   const handleDrawCountChange = (e) => {

@@ -32,7 +32,7 @@ export const shuffleNewDeck = async (deckCount = 1) => {
   return data;
 };
 
-export const checkDeck = async (deckId) => {
+export const applyDeckData = async (deckId) => {
   if (!deckId) throw new Error("Invalid deck ID");
 
   const url = `${baseUrl}/${deckId}`;
@@ -77,4 +77,14 @@ export const fetchPileCards = async (deckId, pileName) => {
     }));
   }
   return [];
+};
+
+export const initializeDeckWithPile = async (deckCount = 1) => {
+  const newDeckData = await shuffleNewDeck(deckCount);
+  if (newDeckData.success) {
+    await addToPile(newDeckData.deck_id, "discard", "");
+    await reshuffleDeck(newDeckData.deck_id);
+    return newDeckData;
+  }
+  return newDeckData;
 };
