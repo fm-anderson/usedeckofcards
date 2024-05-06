@@ -1,13 +1,12 @@
 import { useState, useCallback, useEffect } from "react";
 import { getFromLocalStorage, saveToLocalStorage } from "../utils/helper";
 import {
-  shuffleNewDeck,
-  checkDeck,
+  applyDeckData,
   reshuffleDeck,
   drawCards,
   addToPile,
   listPileCards,
-  fetchPileCards,
+  initializeDeckWithPile,
 } from "../utils/api";
 
 function useDeckOfCards() {
@@ -28,23 +27,24 @@ function useDeckOfCards() {
     setIsLoading(true);
     try {
       let deckData;
-      if (deckId) {
-        deckData = await checkDeck(deckId);
+      if (!deckId) {
+        deckData = await initializeDeckWithPile();
+        updateDeck(deckData);
+      } else {
+        deckData = await applyDeckData(deckId);
+        updateDeck(deckData);
         const pileNames = await listPileCards(deckId);
-        const updatedPileCards = [];
 
-        for (const pileName of Object.keys(pileNames.piles)) {
-          const cards = await fetchPileCards(deckData.deck_id, pileName);
-          updatedPileCards.push(...cards);
+        if (pileNames.success) {
+          if (Object.keys(pileNames.piles).length > 0) {
+            updatePileCards();
+          } else {
+            console.warn("No piles to update.");
+          }
+        } else {
+          console.warn("Invalid pile data received.");
         }
-        setPileCards(updatedPileCards);
       }
-
-      if (!deckData || !deckData.success) {
-        deckData = await shuffleNewDeck();
-      }
-
-      updateDeck(deckData);
     } catch (error) {
       console.error("Failed to initialize deck:", error);
     } finally {
@@ -58,7 +58,21 @@ function useDeckOfCards() {
 
   const drawAndAddToPile = useCallback(
     async (pileName, count = 1) => {
-      if (!deckId || isLoading) return;
+      pileName = pileName || "discard";
+
+      if (!deckId || isLoading) {
+        console.warn(
+          "Action skipped: no deck ID or operation is currently loading.",
+        );
+        return;
+      }
+
+      if (!/^[a-zA-Z0-9]+$/.test(pileName)) {
+        console.warn(
+          "Invalid pile name: The pile name must consist only of alphanumeric characters without any spaces or special characters.",
+        );
+        return;
+      }
 
       try {
         const result = await drawCards(deckId, count);
@@ -98,6 +112,15 @@ function useDeckOfCards() {
       console.error("Failed to reset game:", error);
     }
   }, [deckId]);
+
+  const updatePileCards = useCallback(async (deckId, pileNames) => {
+    const updatedPileCards = [];
+    for (const pileName of Object.keys(pileNames.piles)) {
+      const cards = await fetchPileCards(deckId, pileName);
+      updatedPileCards.push(...cards);
+    }
+    setPileCards(updatedPileCards);
+  }, []);
 
   return {
     deckId,
