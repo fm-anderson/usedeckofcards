@@ -9,11 +9,11 @@ function Main() {
   const getPileNames = Array.from(
     new Set(pileCards.map((card) => card.pileName)),
   )
-    .filter((pileName) => pileName !== "discarded")
+    .filter((pileName) => pileName !== "discard")
     .sort((a, b) => a.localeCompare(b));
 
-  if (pileCards.some((card) => card.pileName === "discarded")) {
-    getPileNames.push("discarded");
+  if (pileCards.some((card) => card.pileName === "discard")) {
+    getPileNames.push("discard");
   }
 
   return (
