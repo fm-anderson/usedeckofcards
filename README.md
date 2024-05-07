@@ -13,9 +13,17 @@ Live Example: https://usedeckofcards.netlify.app/
 - Track Deck State: Keep track of remaining cards in the deck and monitor loading states.
 - Store Deck Id: To prevent the creation of multiple identical decks, we store the deckId in localStorage.
 
+## Available on NPM
+
+You can review the [package code here](https://github.com/fm-anderson/npm_usedeckofcards/).
+
+```bash
+npm install usedeckofcards
+```
+
 ## File Structure
 
-To properly implement the useDeckOfCards hook, the following file structure is recommended:
+You can also implement manually using the following file structure:
 
 ```
 src/
@@ -25,6 +33,8 @@ src/
 |   |-- helper.js
 |   |-- api.js
 ```
+
+Copy these files into their respective folders:
 
 - [src/hooks/useDeckOfCards.js](https://github.com/fm-anderson/usedeckofcards/blob/main/src/hooks/useDeckOfCards.js): This file contains the core functionality for managing the deck of cards.
 - [src/utils/helper.js](https://github.com/fm-anderson/usedeckofcards/blob/main/src/utils/helper.js): This file contains utility functions for interacting with local storage.
