@@ -1,6 +1,8 @@
+import CopyNPM from "./CopyNPM";
+
 function Navbar() {
   return (
-    <div className="navbar justify-center gap-1 bg-transparent text-base-100 md:justify-start">
+    <div className="navbar justify-center gap-4 bg-transparent text-base-100 md:justify-start">
       <a href="/">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -21,6 +23,7 @@ function Navbar() {
         </svg>
         <p className="text-xl">useDeckOfCards</p>
       </a>
+      <CopyNPM />
     </div>
   );
 }
