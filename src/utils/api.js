@@ -88,3 +88,8 @@ export const initializeDeckWithPile = async (deckCount = 1) => {
   }
   return newDeckData;
 };
+
+export const drawFromPile = async (deckId, pileName, cards) => {
+  const url = `${baseUrl}/${deckId}/pile/${pileName}/draw/?cards=${cards}`;
+  return fetchAndHandle(url);
+};

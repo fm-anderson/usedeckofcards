@@ -9,7 +9,7 @@ function Form({ drawAndAddToPile, resetGame }) {
     e.preventDefault();
 
     const settedPileName = pileName.trim();
-    if (!/^[a-zA-Z0-9]+$/.test(settedPileName) && settedPileName !== "") {
+    if (!/^[a-zA-Z0-9-_]+$/.test(settedPileName) && settedPileName !== "") {
       setError("Pile name can only contain alphanumeric characters.");
       return;
     }
@@ -26,7 +26,7 @@ function Form({ drawAndAddToPile, resetGame }) {
 
   const handlePileNameChange = (e) => {
     const input = e.target.value;
-    if (/^[a-zA-Z0-9]*$/.test(input)) {
+    if (/^[a-zA-Z0-9-_]*$/.test(input)) {
       setPileName(input);
       setError("");
     } else {
