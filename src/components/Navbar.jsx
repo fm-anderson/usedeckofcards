@@ -23,7 +23,9 @@ function Navbar() {
         </svg>
         <p className="text-xl">useDeckOfCards</p>
       </a>
-      <CopyNPM />
+      <div className="hidden md:flex">
+        <CopyNPM />
+      </div>
     </div>
   );
 }
